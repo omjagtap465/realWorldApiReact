@@ -1,6 +1,9 @@
 import { NavLink } from "react-router-dom";
-
+import { useSelector } from "react-redux";
+import currentUser from "../store/currentUserStore/selector";
 const Topbar = () => {
+  const CurrentUser = useSelector(currentUser);
+
   return (
     <nav className="navbar navbar-light">
       <div className="container">
@@ -13,16 +16,20 @@ const Topbar = () => {
               Home
             </NavLink>
           </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/login">
-              Sign in
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/register">
-              Sign up
-            </NavLink>
-          </li>
+          {!CurrentUser.isLoggedIn && (
+            <>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/login">
+                  Sign In
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/register">
+                  Sign Up
+                </NavLink>
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </nav>

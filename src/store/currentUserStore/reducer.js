@@ -1,8 +1,4 @@
-import {
-  buildCreateSlice,
-  createAsyncThunk,
-  createSlice,
-} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import fetchApi from "../../utils/fetchApiResponse";
 import { useNavigate } from "react-router-dom";
 export const currentUserState = createAsyncThunk(
@@ -19,24 +15,12 @@ export const currentUserState = createAsyncThunk(
     const response = await fetchApi(userData.apiUrl, payload);
     console.log(response);
     return response;
-    // const [response, doFetch] = useFetch(userData.apiUrl);
-    // console.log(userData.user);
-
-    // doFetch({
-    //   method: "post",
-    //   data: userData.user,
-    // });
-    // // if (true) {
-    // //   throw new Error(2);
-    // // }
-    // // return 2;
-    // return true;
   }
 );
 const currentUserSlice = createSlice({
   name: "currentUser", //reducer name
   initialState: {
-    value: 0,
+    value: null,
     isLoggedIn: false,
   },
   reducers: {},
