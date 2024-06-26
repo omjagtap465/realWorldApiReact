@@ -12,8 +12,8 @@ export const currentUserState = createAsyncThunk(
         },
       },
     };
+    console.log(payload);
     const response = await fetchApi(userData.apiUrl, payload);
-    console.log(response);
     return response;
   }
 );

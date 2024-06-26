@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 import pagesCount from "../../utils/pagination";
 import queryString from "query-string";
 import PopularTags from "../../shared/populartags";
-export const GlobalFeed = () => {
+export const YourFeed = () => {
   const [feeds, setFeeds] = useState({ articles: [], articlesCount: 0 });
   const [pages, setPages] = useState([]);
   const payload = {
@@ -16,33 +16,25 @@ export const GlobalFeed = () => {
   };
   const location = useLocation();
   const currentPage = Number(queryString.parse(location.search).page || 0);
-  const pageRef = useRef(currentPage);
-  const apiUrl = `/articles?limit=20&offset=${currentPage}`;
-  // useEffect(() => {
-  //   fetchApi(apiUrl, payload).then((res) => {
-  //     setFeeds(res);
-  //     const pa = pagesCount(res.articlesCount, 20);
-  //     setPages(pa);
-  //   });
-  // }, [currentPage]);
+  //   const tagName = location.pathname.split("/")[2];
+  //   console.log();
+  const apiUrl = `/articles?tag=${tagName}&limit=20&offset=${currentPage}`;
   useEffect(() => {
-    //   fetchApi(apiUrl, payload).then((res) => {
-    //     setFeeds(res);
-    //     const pa = pagesCount(res.articlesCount, 20);
-    //     setPages(pa);
-    //   });
-    // return
-  }, []);
-  // tree -> st
+    fetchApi(apiUrl, payload).then((res) => {
+      setFeeds(res);
+      const pa = pagesCount(res.articlesCount, 20);
+      setPages(pa);
+    });
+  }, [currentPage]);
   return (
     <>
-      {feeds.articlesCount}
       <div className="home-page">
+        kjkdflkb
         <Banner />
         <div className="container page">
           <div className="row">
             <div className="col-md-9">
-              <FeedToggler />
+              <FeedToggler tagName={tagName} />
               <Articles articles={feeds.articles} />
               {
                 <Pagination

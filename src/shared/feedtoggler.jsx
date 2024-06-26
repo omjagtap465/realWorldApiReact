@@ -2,8 +2,9 @@ import React from "react";
 import { useMemo } from "react";
 import currentUser from "../store/currentUserStore/selector";
 import { useSelector } from "react-redux";
+import { Link, NavLink } from "react-router-dom";
 
-function FeedToggler() {
+function FeedToggler({ tagName }) {
   const CurrentUser = useSelector(currentUser);
   return (
     <>
@@ -17,10 +18,17 @@ function FeedToggler() {
             </li>
           )}
           <li className="nav-item">
-            <a className="nav-link active" href="">
+            <NavLink className="nav-link " to="/">
               Global Feed
-            </a>
+            </NavLink>
           </li>
+          {tagName && (
+            <li className="nav-item">
+              <NavLink className="nav-link " href="">
+                #{tagName}
+              </NavLink>
+            </li>
+          )}
         </ul>
       </div>
     </>

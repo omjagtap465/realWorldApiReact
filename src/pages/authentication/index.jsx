@@ -13,7 +13,6 @@ const Authentication = ({ match }) => {
   const [password, setPassword] = useState("");
   const apiUrl = isLogin ? "/users/login" : "/users";
   const dispatch = useDispatch();
-  const counter = useSelector((state) => state.currentUser.value);
   const isLoggedIn = useSelector((state) => state.currentUser.isLoggedIn);
   const navigate = useNavigate();
   useEffect(() => {
@@ -28,7 +27,6 @@ const Authentication = ({ match }) => {
       apiUrl,
     };
     dispatch(currentUserState(userData));
-    console.log(counter);
   };
   return (
     <>
@@ -51,7 +49,6 @@ const Authentication = ({ match }) => {
               {/* <ul className="error-messages">
                 <li>That email is already taken</li>
               </ul> */}
-              {counter.username}
               <form onSubmit={onSubmit}>
                 <fieldset className="form-group">
                   {!isLogin && (
