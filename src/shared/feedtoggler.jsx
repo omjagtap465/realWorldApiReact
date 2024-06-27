@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 
 function FeedToggler({ tagName }) {
-  const CurrentUser = useSelector(currentUser);
+  const CurrentUser = useSelector(state => state.currentUser);
   return (
     <>
       <div className="feed-toggle">

@@ -1,8 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import currentUser from "../store/currentUserStore/selector";
 const Topbar = () => {
-  const CurrentUser = useSelector(currentUser);
+  const CurrentUser = useSelector(state => state.currentUser);
 
   return (
     <nav className="navbar navbar-light">
