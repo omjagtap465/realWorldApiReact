@@ -3,17 +3,18 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { currentUserState } from "../../store/currentUserStore/reducer";
+import { currentUserState } from "../../store/currentUserStore/currentUserReducer";
 const Authentication = ({ match }) => {
   const { pathname } = useLocation();
 
   const isLogin = pathname == "/login" ? true : false;
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("ayushjagtap2006@gmail.com");
+  const [password, setPassword] = useState("123456");
   const apiUrl = isLogin ? "/users/login" : "/users";
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.currentUser.isLoggedIn);
+  const token = useSelector((state) => state.currentUser.token);
   const navigate = useNavigate();
   useEffect(() => {
     if (isLoggedIn) {
@@ -46,9 +47,6 @@ const Authentication = ({ match }) => {
                   <Link to="/login">Have an account?</Link>
                 )}
               </p>
-              {/* <ul className="error-messages">
-                <li>That email is already taken</li>
-              </ul> */}
               <form onSubmit={onSubmit}>
                 <fieldset className="form-group">
                   {!isLogin && (

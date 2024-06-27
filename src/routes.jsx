@@ -3,6 +3,7 @@ import Authentication from "./pages/authentication";
 import { GlobalFeed } from "./pages/globalfeed";
 import { TagFeed } from "./pages/tagFeed/tagFeed";
 import Article from "./pages/article/article";
+import { YourFeed } from "./pages/yourFeed/yourFeed";
 export default function AppRoutes() {
   return (
     <Routes>
@@ -10,7 +11,8 @@ export default function AppRoutes() {
       <Route path="/login" element={<Authentication />} />
       <Route path="/register" element={<Authentication />} />
       <Route path="/tags/:slug" element={<TagFeed />} />
-      <Route path="/articles/:slug" element={<Article />} />
+      <Route path="/article/:slug" element={<Article />} />
+      <Route path="/yourfeed" element={<YourFeed />} />
     </Routes>
   );
 }

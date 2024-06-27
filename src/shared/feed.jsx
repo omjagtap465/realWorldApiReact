@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Pagination from "./pagination";
+import { Link } from "react-router-dom";
 function Articles({ articles }) {
   // const articles = [];
   useEffect(() => {}, [articles]);
@@ -26,7 +27,7 @@ function Articles({ articles }) {
               <i className="ion-heart"></i> {article.favoritesCount}
             </button>
           </div>
-          <a href={`/article/${article.slug}`} className="preview-link">
+          <Link to={`/article/${article.slug}`} className="preview-link">
             <h1>{article.title}</h1>
             <p>{article.description}</p>
             <span>Read more...</span>
@@ -37,7 +38,7 @@ function Articles({ articles }) {
                 </li>
               ))}
             </ul>
-          </a>
+          </Link>
         </div>
       ))}
     </>

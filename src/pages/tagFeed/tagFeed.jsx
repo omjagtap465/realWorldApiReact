@@ -18,22 +18,18 @@ export const TagFeed = () => {
   const currentPage = Number(queryString.parse(location.search).page || 0);
   const tagName = location.pathname.split("/")[2];
   //   console.log();
-  const prevTag = useRef(tagName);
   const apiUrl = `/articles?tag=${tagName}&limit=20&offset=${currentPage}`;
   useEffect(() => {
-    if (prevTag.current !== tagName) {
       fetchApi(apiUrl, payload).then((res) => {
         setFeeds(res);
         const pa = pagesCount(res.articlesCount, 20);
         setPages(pa);
       });
-    }
   }, [currentPage, tagName]);
 
   return (
     <>
       <div className="home-page">
-        kjkdflkb
         <Banner />
         <div className="container page">
           <div className="row">

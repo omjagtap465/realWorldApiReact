@@ -8,6 +8,9 @@ import { useLocation } from "react-router-dom";
 import pagesCount from "../../utils/pagination";
 import queryString from "query-string";
 import PopularTags from "../../shared/populartags";
+import { useDispatch, useSelector } from "react-redux";
+import { getCurrentUser } from "../../store/currentUserStore/currentUserReducer";
+import { useNavigate } from 'react-router-dom';
 export const GlobalFeed = () => {
   const [feeds, setFeeds] = useState({ articles: [], articlesCount: 0 });
   const [pages, setPages] = useState([]);
@@ -16,24 +19,39 @@ export const GlobalFeed = () => {
   };
   const location = useLocation();
   const currentPage = Number(queryString.parse(location.search).page || 0);
-  const pageRef = useRef(currentPage);
   const apiUrl = `/articles?limit=20&offset=${currentPage}`;
-  // useEffect(() => {
-  //   fetchApi(apiUrl, payload).then((res) => {
-  //     setFeeds(res);
-  //     const pa = pagesCount(res.articlesCount, 20);
-  //     setPages(pa);
-  //   });
-  // }, [currentPage]);
+
+  const token  =   localStorage.getItem("token");
+  const isLoggedIn = useSelector((state) => state.currentUser.isLoggedIn);
+  const reducerToken = useSelector(state => state.currentUser.token)
+  const dispatch   = useDispatch()
+  const navigate = useNavigate()
+  const isLoading = useSelector(state => state.currentUser.isLoading)
+  const currentUser = useSelector((state) => state.currentUser.value);
   useEffect(() => {
-    //   fetchApi(apiUrl, payload).then((res) => {
-    //     setFeeds(res);
-    //     const pa = pagesCount(res.articlesCount, 20);
-    //     setPages(pa);
-    //   });
-    // return
-  }, []);
-  // tree -> st
+    if(token && !isLoggedIn){
+      dispatch(getCurrentUser(token))
+    }
+    fetchApi(apiUrl, payload).then((res) => { 
+      setFeeds(res);
+      const pa = pagesCount(res.articlesCount, 20);
+      setPages(pa);
+    });
+    
+    
+    
+    
+    
+  }, [currentPage,currentUser,isLoggedIn,reducerToken]);
+  useEffect(() => {
+    console.log(isLoading)
+    if (!reducerToken && isLoading) {
+      navigate('/login');
+    }
+  }, [reducerToken, isLoading, navigate]);
+
+
+
   return (
     <>
       {feeds.articlesCount}

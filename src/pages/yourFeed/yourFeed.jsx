@@ -8,33 +8,36 @@ import { useLocation } from "react-router-dom";
 import pagesCount from "../../utils/pagination";
 import queryString from "query-string";
 import PopularTags from "../../shared/populartags";
+import { useSelector } from "react-redux";
 export const YourFeed = () => {
   const [feeds, setFeeds] = useState({ articles: [], articlesCount: 0 });
   const [pages, setPages] = useState([]);
+  const token = useSelector(state => state.currentUser.token)
   const payload = {
     method: "get",
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    }
   };
   const location = useLocation();
   const currentPage = Number(queryString.parse(location.search).page || 0);
-  //   const tagName = location.pathname.split("/")[2];
-  //   console.log();
-  const apiUrl = `/articles?tag=${tagName}&limit=20&offset=${currentPage}`;
+  const apiUrl = `/articles?author=ayushjagtap2006`
   useEffect(() => {
     fetchApi(apiUrl, payload).then((res) => {
       setFeeds(res);
       const pa = pagesCount(res.articlesCount, 20);
       setPages(pa);
     });
+    console.log(token);
   }, [currentPage]);
   return (
     <>
       <div className="home-page">
-        kjkdflkb
         <Banner />
         <div className="container page">
           <div className="row">
             <div className="col-md-9">
-              <FeedToggler tagName={tagName} />
+              <FeedToggler  />
               <Articles articles={feeds.articles} />
               {
                 <Pagination

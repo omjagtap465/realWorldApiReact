@@ -12,9 +12,9 @@ function FeedToggler({ tagName }) {
         <ul className="nav nav-pills outline-active">
           {CurrentUser.isLoggedIn && (
             <li className="nav-item">
-              <a className="nav-link" href="">
+              <NavLink className="nav-link" to="/yourfeed">
                 Your Feed
-              </a>
+              </NavLink>
             </li>
           )}
           <li className="nav-item">
@@ -24,7 +24,7 @@ function FeedToggler({ tagName }) {
           </li>
           {tagName && (
             <li className="nav-item">
-              <NavLink className="nav-link " href="">
+              <NavLink className="nav-link" >
                 #{tagName}
               </NavLink>
             </li>

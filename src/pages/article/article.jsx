@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import fetchApi from "../../utils/fetchApiResponse";
 
 function Article() {
@@ -13,7 +13,8 @@ function Article() {
   const [article, setArticle] = useState(null);
   useEffect(() => {
     fetchApi(apiUrl, payload).then((res) => {
-      setArticle(res);
+      setArticle(res.article);
+      console.log(article);
     });
   }, []);
   return (
@@ -22,27 +23,26 @@ function Article() {
         <div className="article-page">
           <div className="banner">
             <div className="container">
-              {/* <h1>{article.slug}</h1> */}
-
+                <h1>{article.title}</h1>
               <div className="article-meta">
-                <a href="/profile/eric-simons">
+                <a href={`/profile/${article.author.username}`}>
                   <img src="http://i.imgur.com/Qr71crq.jpg" />
                 </a>
                 <div className="info">
-                  <a href="/profile/eric-simons" className="author">
-                    Eric Simons
-                  </a>
-                  <span className="date">January 20th</span>
+                  <Link href={`/profile/${article.author.username}`} className="author">
+                    {article.author.username}
+                  </Link>
+                  <span className="date">{article.createdAt.slice(0,10)}</span>
                 </div>
                 <button className="btn btn-sm btn-outline-secondary">
                   <i className="ion-plus-round"></i>
-                  &nbsp; Follow Eric Simons{" "}
-                  <span className="counter">(10)</span>
+                  &nbsp; Follow {article.author.username}{" "}
+                  <span className="counter"></span>
                 </button>
                 &nbsp;&nbsp;
                 <button className="btn btn-sm btn-outline-primary">
                   <i className="ion-heart"></i>
-                  &nbsp; Favorite Post <span className="counter">(29)</span>
+                  &nbsp; Favorite Post <span className="counter">{article.favoritesCount}</span>
                 </button>
                 <button className="btn btn-sm btn-outline-secondary">
                   <i className="ion-edit"></i> Edit Article
@@ -51,6 +51,7 @@ function Article() {
                   <i className="ion-trash-a"></i> Delete Article
                 </button>
               </div>
+                
             </div>
           </div>
 
@@ -58,27 +59,26 @@ function Article() {
             <div className="row article-content">
               <div className="col-md-12">
                 <p>
-                  Web development technologies have evolved at an incredible
-                  clip over the past few years.
                 </p>
-                <h2 id="introducing-ionic">Introducing RealWorld.</h2>
+                <h2 id="introducing-ionic">{article.title}</h2>
                 <p>
-                  It's a great solution for learning how other frameworks work.
+                {article.body}
                 </p>
                 <ul className="tag-list">
-                  <li className="tag-default tag-pill tag-outline">
-                    realworld
+                  {article.tagList.map((tag,index) =>
+                    <li key ={index}  className="tag-default tag-pill tag-outline">
+                    {tag}
                   </li>
-                  <li className="tag-default tag-pill tag-outline">
-                    implementations
-                  </li>
+                   )}
+                  
+                  
                 </ul>
               </div>
             </div>
 
             <hr />
 
-            <div className="article-actions">
+            {/* <div className="article-actions">
               <div className="article-meta">
                 <a href="profile.html">
                   <img src="http://i.imgur.com/Qr71crq.jpg" />
@@ -104,10 +104,10 @@ function Article() {
                 <button className="btn btn-sm btn-outline-danger">
                   <i className="ion-trash-a"></i> Delete Article
                 </button>
-              </div>
-            </div>
+              </div> 
+            </div>*/}
 
-            <div className="row">
+            {/* <div className="row">
               <div className="col-xs-12 col-md-8 offset-md-2">
                 <form className="card comment-form">
                   <div className="card-block">
@@ -173,9 +173,9 @@ function Article() {
                       <i className="ion-trash-a"></i>
                     </span>
                   </div>
-                </div>
+                </div> 
               </div>
-            </div>
+            </div>*/}
           </div>
         </div>
       ) : (
