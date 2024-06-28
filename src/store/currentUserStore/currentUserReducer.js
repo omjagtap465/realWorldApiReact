@@ -36,8 +36,8 @@ export const getCurrentUser = createAsyncThunk(
 export const currentUser = createSlice({
   name: "currentUser",
   initialState: {
-    isLoading:false,
-    value: null,
+    isLoading:true,
+    value: undefined,
     isLoggedIn: false,
     token: "",
     error: null,
@@ -50,6 +50,7 @@ export const currentUser = createSlice({
       .addCase(currentUserState.fulfilled, (state, action) => {
         const data = action.payload.user;
         state.value = data;
+        state.isLoggedIn = true;
         state.isLoggedIn = true;
         state.token = data.token;
         localStorage.setItem("token", data.token);
@@ -66,10 +67,11 @@ export const currentUser = createSlice({
         state.value = data;
         state.isLoggedIn = true;
         state.token = data.token;
-        localStorage.setItem("token", data.token);
+        // localStorage.setItem("token", data.token);
       })
       .addCase(getCurrentUser.rejected, (state, action) => {
         state.isLoggedIn = false;
+        state.value= null;
         state.error = action.error.message;
       });
   },

@@ -23,11 +23,7 @@ export const GlobalFeed = () => {
 
   const token  =   localStorage.getItem("token");
   const isLoggedIn = useSelector((state) => state.currentUser.isLoggedIn);
-  const reducerToken = useSelector(state => state.currentUser.token)
   const dispatch   = useDispatch()
-  const navigate = useNavigate()
-  const isLoading = useSelector(state => state.currentUser.isLoading)
-  const currentUser = useSelector((state) => state.currentUser.value);
   useEffect(() => {
     if(token && !isLoggedIn){
       dispatch(getCurrentUser(token))
@@ -42,13 +38,8 @@ export const GlobalFeed = () => {
     
     
     
-  }, [currentPage,currentUser,isLoggedIn,reducerToken]);
-  useEffect(() => {
-    console.log(isLoading)
-    if (!reducerToken && isLoading) {
-      navigate('/login');
-    }
-  }, [reducerToken, isLoading, navigate]);
+  }, [currentPage,isLoggedIn]);
+
 
 
 

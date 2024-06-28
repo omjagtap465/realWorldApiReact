@@ -1,8 +1,8 @@
-import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-const Topbar = () => {
-  const CurrentUser = useSelector(state => state.currentUser);
+import { NavLink } from "react-router-dom";
 
+const Topbar = () => {
+  const isLoggedIn = useSelector((state) => state.currentUser.value);
   return (
     <nav className="navbar navbar-light">
       <div className="container">
@@ -15,7 +15,7 @@ const Topbar = () => {
               Home
             </NavLink>
           </li>
-          {!CurrentUser.isLoggedIn && (
+        {isLoggedIn ===  null  && ( 
             <>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/login">
@@ -28,10 +28,33 @@ const Topbar = () => {
                 </NavLink>
               </li>
             </>
-          )}
+          ) 
+        }
+          { isLoggedIn &&
+            (
+              <>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/editor">
+                    New Post
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/settings">
+                    Settings
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/profile">
+                    Profile
+                  </NavLink>
+                </li>
+              </>
+            )
+          } 
         </ul>
       </div>
     </nav>
   );
 };
+
 export default Topbar;
