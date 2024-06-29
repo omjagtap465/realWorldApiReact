@@ -42,7 +42,14 @@ export const currentUser = createSlice({
     token: "",
     error: null,
   },
-  reducers: {},
+  reducers: {
+    logoutUser: (state) => {
+      state.value = null;
+      state.isLoggedIn = false;
+      state.token = "";
+      localStorage.removeItem("token"); 
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(currentUserState.pending, (state) => {
@@ -67,7 +74,6 @@ export const currentUser = createSlice({
         state.value = data;
         state.isLoggedIn = true;
         state.token = data.token;
-        // localStorage.setItem("token", data.token);
       })
       .addCase(getCurrentUser.rejected, (state, action) => {
         state.isLoggedIn = false;
@@ -76,5 +82,5 @@ export const currentUser = createSlice({
       });
   },
 });
-
+export const { logoutUser } = currentUser.actions;
 export default currentUser.reducer;

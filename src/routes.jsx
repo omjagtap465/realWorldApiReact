@@ -5,6 +5,7 @@ import { TagFeed } from "./pages/tagFeed/tagFeed";
 import Article from "./pages/article/article";
 import { YourFeed } from "./pages/yourFeed/yourFeed";
 import ArticleForm from "./shared/articleForm";
+import Settings from "./pages/settings/settings";
 export default function AppRoutes() {
   return (
     <Routes>
@@ -16,6 +17,8 @@ export default function AppRoutes() {
       <Route path="/yourfeed" element={<YourFeed />} />
       <Route path="/newpost" element={<ArticleForm />} />
       <Route path="/editor" element={<ArticleForm />} />
+      <Route path="/settings" element={<Settings
+       />} />
     </Routes>
   );
 }
