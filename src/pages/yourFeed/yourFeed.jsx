@@ -21,7 +21,7 @@ export const YourFeed = () => {
   };
   const location = useLocation();
   const currentPage = Number(queryString.parse(location.search).page || 0);
-  const apiUrl = `/articles?favorited=ayushjagtap2006`
+  const apiUrl = `/articles?author=ayushjagtap2006`
   useEffect(() => {
     fetchApi(apiUrl, payload).then((res) => {
       setFeeds(res);

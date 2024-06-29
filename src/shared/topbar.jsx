@@ -34,7 +34,7 @@ const Topbar = () => {
             (
               <>
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="/editor">
+                  <NavLink className="nav-link" to="/newpost">
                     New Post
                   </NavLink>
                 </li>

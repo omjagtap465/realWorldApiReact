@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import fetchApi from "../../utils/fetchApiResponse";
-
+import { useNavigate } from "react-router-dom";
 function Article() {
   const location = useLocation();
   const articleSlug = location.pathname.split("/")[2];
   const apiUrl = `/articles/${articleSlug}`;
   const payload = {
     method: "get",
+  };
+  const navigate = useNavigate()
+  const handleEdit = () => {
+    navigate("/editor", { state: { article } });
   };
   console.log(articleSlug);
   const [article, setArticle] = useState(null);
@@ -44,8 +48,7 @@ function Article() {
                   <i className="ion-heart"></i>
                   &nbsp; Favorite Post <span className="counter">{article.favoritesCount}</span>
                 </button>
-                <button className="btn btn-sm btn-outline-secondary">
-                  <i className="ion-edit"></i> Edit Article
+                <button className="btn btn-sm btn-outline-secondary" onClick={handleEdit}>                  <i className="ion-edit"></i> Edit Article
                 </button>
                 <button className="btn btn-sm btn-outline-danger">
                   <i className="ion-trash-a"></i> Delete Article
