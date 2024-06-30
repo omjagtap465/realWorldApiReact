@@ -30,8 +30,8 @@ export const GlobalFeed = () => {
     }
     fetchApi(apiUrl, payload).then((res) => { 
       setFeeds(res);
-      const pa = pagesCount(res.articlesCount, 20);
-      setPages(pa);
+      const pageCount = pagesCount(res.articlesCount, 20);
+      setPages(pageCount);
     });
     
     

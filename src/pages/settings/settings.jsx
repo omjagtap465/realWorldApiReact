@@ -11,7 +11,7 @@ function Settings() {
     const [image, setImage] = useState("");
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");
-    let token  = localStorage.getItem("token");
+    let token = localStorage.getItem("token");
     const dispatch = useDispatch()
 
     const navigate = useNavigate();
@@ -23,11 +23,11 @@ function Settings() {
             setImage(currentUser.image || "");
             setUsername(currentUser.username || "");
         }
-        
-    }, [currentUser,token]);
+
+    }, [currentUser, token]);
 
     function updateSetting(event) {
-        event.preventDefault(); 
+        event.preventDefault();
 
         const payload = {
             method: "put",
@@ -39,25 +39,25 @@ function Settings() {
             }
         };
         fetchApi('/user', payload)
-        .then(res => {
-            if (res) {
-                navigate('/');
-            } else {
-                console.error("Failed to update settings");
-            }
-        })
-        .catch(error => {
-            console.error("Error updating settings:", error);
-        });
+            .then(res => {
+                if (res) {
+                    navigate('/');
+                } else {
+                    console.error("Failed to update settings");
+                }
+            })
+            .catch(error => {
+                console.error("Error updating settings:", error);
+            });
 
-    
+
     }
     const userLogout = () => {
-       token = localStorage.removeItem('token');
-       dispatch(logoutUser())
-        
-      navigate('/login')   
-     }
+        token = localStorage.removeItem('token');
+        dispatch(logoutUser())
+
+        navigate('/login')
+    }
     if (!currentUser) {
         return <div>Loading...</div>;
     }
